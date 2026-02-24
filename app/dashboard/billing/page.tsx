@@ -6,6 +6,7 @@ import { ArrowLeft } from "lucide-react";
 import { BillingPlansGrid } from "./BillingPlansGrid";
 import { UserMenu } from "@/components/UserMenu";
 import Footer from "@/components/Footer";
+import { BillingPixelEvents } from "@/components/BillingPixelEvents";
 
 export default async function BillingPage() {
   const supabase = await createClient();
@@ -36,6 +37,8 @@ export default async function BillingPage() {
 
   return (
     <div className="flex min-h-screen flex-col bg-muted">
+      {/* Fire ViewContent pixel event - billing page = high purchase intent */}
+      <BillingPixelEvents />
       <Header
         containerClass="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex h-16 items-center justify-between"
         rightContent={<UserMenu />}

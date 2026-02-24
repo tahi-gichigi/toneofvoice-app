@@ -9,6 +9,7 @@ import { createClient } from "@/lib/supabase-browser";
 import { Button } from "@/components/ui/button";
 import { AuthError } from "@/components/ui/auth-error";
 import { classifyAuthError } from "@/lib/auth-errors";
+import { MetaPixel } from "@/lib/meta-pixel";
 
 function SignUpContent() {
   const router = useRouter();
@@ -56,10 +57,14 @@ function SignUpContent() {
         return;
       }
       if (data.user && !data.session) {
+        // Email confirmation required - user created but not yet signed in
+        MetaPixel.completeRegistration();
         setSuccess(true);
         return;
       }
       if (data.session) {
+        // Instant sign-in (email confirmation disabled)
+        MetaPixel.completeRegistration();
         router.push(redirectTo);
         router.refresh();
       }
@@ -75,6 +80,9 @@ function SignUpContent() {
   const handleGoogleSignUp = async () => {
     setError(null);
     setLoading(true);
+    // Set a flag so the dashboard can fire CompleteRegistration after OAuth redirect.
+    // We guard against returning users on the dashboard side via created_at check.
+    localStorage.setItem("meta_pixel_pending", "complete_registration");
     try {
       const supabase = createClient();
       const { error: err } = await supabase.auth.signInWithOAuth({
@@ -84,11 +92,14 @@ function SignUpContent() {
         },
       });
       if (err) {
+        // Clear the flag - OAuth failed so no registration will happen
+        localStorage.removeItem("meta_pixel_pending");
         const errorDetails = classifyAuthError(err);
         setError(errorDetails.message);
         return;
       }
     } catch (error) {
+      localStorage.removeItem("meta_pixel_pending");
       const errorDetails = classifyAuthError(error);
       setError(errorDetails.message);
       console.error("[sign-up] Google OAuth error:", error);
