@@ -6,7 +6,8 @@ import { classifyAuthError } from "@/lib/auth-errors";
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
-  const next = searchParams.get("next") ?? "/dashboard";
+  // Default to /auth/claim so pending localStorage guides get saved before dashboard renders
+  const next = searchParams.get("next") ?? "/auth/claim";
   const errorParam = searchParams.get("error");
   const errorDescription = searchParams.get("error_description");
 

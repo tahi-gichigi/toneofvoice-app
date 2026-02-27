@@ -14,7 +14,8 @@ import { MetaPixel } from "@/lib/meta-pixel";
 function SignUpContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirectTo = searchParams.get("redirectTo") ?? "/dashboard";
+  // Route through /auth/claim so pending localStorage guides get saved before dashboard renders
+  const redirectTo = searchParams.get("redirectTo") ?? "/auth/claim";
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -200,7 +201,7 @@ function SignUpContent() {
         <p className="mt-6 text-center text-sm text-gray-500">
           Already have an account?{" "}
           <Link
-            href={redirectTo !== "/dashboard" ? `/sign-in?redirectTo=${encodeURIComponent(redirectTo)}` : "/sign-in"}
+            href={redirectTo !== "/auth/claim" ? `/sign-in?redirectTo=${encodeURIComponent(redirectTo)}` : "/sign-in"}
             className="font-medium text-blue-600 hover:underline"
           >
             Sign in

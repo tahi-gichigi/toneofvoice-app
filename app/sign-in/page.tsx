@@ -13,7 +13,8 @@ import { classifyAuthError } from "@/lib/auth-errors";
 function SignInContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirectTo = searchParams.get("redirectTo") ?? "/dashboard";
+  // Route through /auth/claim so pending localStorage guides get saved before dashboard renders
+  const redirectTo = searchParams.get("redirectTo") ?? "/auth/claim";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -147,7 +148,7 @@ function SignInContent() {
           Don&apos;t have an account?{" "}
           <Link
             href={
-              redirectTo !== "/dashboard"
+              redirectTo !== "/auth/claim"
                 ? `/sign-up?redirectTo=${encodeURIComponent(redirectTo)}`
                 : "/sign-up"
             }
