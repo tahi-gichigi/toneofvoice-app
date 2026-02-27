@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase-server";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 import Link from "next/link";
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
@@ -9,6 +10,7 @@ import { AutoSaveGuide } from "@/components/dashboard/AutoSaveGuide";
 import { GuideCard } from "@/components/dashboard/GuideCard";
 import { SubscriptionRefresh } from "@/components/dashboard/SubscriptionRefresh";
 import { UserMenu } from "@/components/UserMenu";
+import { MetaPixelPurchase } from "@/components/MetaPixelPurchase";
 
 export default async function DashboardPage() {
   const supabase = await createClient();
@@ -44,6 +46,8 @@ export default async function DashboardPage() {
     <div className="flex min-h-screen flex-col bg-gray-50 dark:bg-gray-900">
       <AutoSaveGuide />
       <SubscriptionRefresh />
+      {/* Fires Meta Pixel Purchase event when Stripe redirects back with ?subscription=success */}
+      <Suspense fallback={null}><MetaPixelPurchase /></Suspense>
       <Header
         containerClass="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex h-16 items-center justify-between"
         rightContent={

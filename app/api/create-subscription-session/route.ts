@@ -92,7 +92,8 @@ export async function POST(req: Request) {
           quantity: 1,
         },
       ],
-      success_url: `${BASE_URL}/dashboard?subscription=success`,
+      // Include plan in success URL so the dashboard can fire the correct Purchase pixel event
+      success_url: `${BASE_URL}/dashboard?subscription=success&plan=${plan}`,
       cancel_url: `${BASE_URL}/dashboard/billing?subscription=cancelled`,
       allow_promotion_codes: true,
       metadata: {

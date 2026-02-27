@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { getUserFriendlyError, isAbortError } from "@/lib/api-utils";
+import { MetaPixel } from "@/lib/meta-pixel";
 
 type Props = {
   hasCustomer: boolean;
@@ -46,6 +47,8 @@ export function BillingActions({ hasCustomer, tier, plan, compact, buttonClass }
 
   const handleSubscribe = async (p: "pro" | "agency") => {
     setLoading(true);
+    // Fire before redirect - Stripe will take over the page next
+    MetaPixel.initiateCheckout(p);
     try {
       const res = await fetch("/api/create-subscription-session", {
         method: "POST",
