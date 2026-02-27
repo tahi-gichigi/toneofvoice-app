@@ -4,5 +4,5 @@ Done when: Cloud agents boot with Node 22 and pnpm 10, run `pnpm install --froze
 
 - [x] Read project context (README, lessons, recent commits)
 - [x] Add Cursor cloud environment config files
-- [ ] Run health checks locally
-- [ ] Update this checklist and prepare commit
+- [x] Run health checks locally
+- [x] Update this checklist and prepare commit
