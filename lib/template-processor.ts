@@ -561,15 +561,16 @@ export async function renderPreviewStyleGuide({ brandDetails }: { brandDetails: 
  * Generate full guide by merging preview content with newly generated locked sections.
  * Preserves the preview the user liked; only generates Style Rules, Before/After, Word List.
  */
-export async function renderFullGuideFromPreview({
-  previewContent,
-  brandDetails,
-  userEmail,
-}: {
-  previewContent: string;
-  brandDetails: any;
-  userEmail?: string | null;
-}): Promise<string> {
+export const renderFullGuideFromPreview = traceable(
+  async function renderFullGuideFromPreview({
+    previewContent,
+    brandDetails,
+    userEmail,
+  }: {
+    previewContent: string;
+    brandDetails: any;
+    userEmail?: string | null;
+  }): Promise<string> {
   const { replaceSectionInMarkdown } = await import("./content-parser");
   const brandName = brandDetails.name || "Your Brand";
   const contactFooter =
@@ -659,4 +660,6 @@ export async function renderFullGuideFromPreview({
   merged = replaceSectionInMarkdown(merged, "questions", questionsSection);
 
   return merged;
-}
+  },
+  { name: "renderFullGuideFromPreview", run_type: "chain" }
+)

@@ -525,9 +525,9 @@ Requirements:
         prompt,
         "You are a tone of voice guide expert. Return strict JSON array only.",
         "json",
-        5500,
+        3000,
         "gpt-5.2",
-        "low"
+        "none"
       );
 
       if (!result.success || !result.content) {
