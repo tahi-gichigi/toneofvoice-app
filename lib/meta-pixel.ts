@@ -22,6 +22,9 @@ export const MetaPixel = {
   /** Fire when a user completes account registration. */
   completeRegistration: () => fbq("track", "CompleteRegistration"),
 
+  /** Fire when a new user account is created (MOF ad set optimisation). */
+  lead: () => fbq("track", "Lead"),
+
   /** Fire when a user clicks "Get Pro" / "Get Agency". */
   initiateCheckout: (plan: "pro" | "agency") =>
     fbq("track", "InitiateCheckout", { content_name: plan }),

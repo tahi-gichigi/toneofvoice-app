@@ -60,12 +60,14 @@ function SignUpContent() {
       if (data.user && !data.session) {
         // Email confirmation required - user created but not yet signed in
         MetaPixel.completeRegistration();
+        MetaPixel.lead();
         setSuccess(true);
         return;
       }
       if (data.session) {
         // Instant sign-in (email confirmation disabled)
         MetaPixel.completeRegistration();
+        MetaPixel.lead();
         router.push(redirectTo);
         router.refresh();
       }

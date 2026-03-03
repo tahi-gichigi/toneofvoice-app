@@ -28,6 +28,7 @@ export function MetaPixelPurchase() {
       const ageMs = Date.now() - new Date(createdAt).getTime();
       if (ageMs < 10 * 60 * 1000) {
         MetaPixel.completeRegistration();
+        MetaPixel.lead();
       }
     });
   }, []); // run once on mount

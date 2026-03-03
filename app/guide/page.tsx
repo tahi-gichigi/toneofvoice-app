@@ -1115,6 +1115,13 @@ function GuideContent() {
     }
   }, [isLoading, content, sections.length])
 
+  // Fire ViewContent once when the preview guide becomes visible
+  useEffect(() => {
+    if (contentReady && isPreviewFlow) {
+      MetaPixel.viewContent("guide_preview")
+    }
+  }, [contentReady, isPreviewFlow])
+
   // Loading state: minimal for reloads, progress for generation
   if (isLoading || !content || sections.length === 0) {
     // Quick reload: minimal spinner only
