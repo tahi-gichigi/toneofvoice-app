@@ -3,13 +3,11 @@
 import Link from "next/link"
 import { track } from "@vercel/analytics"
 import { Button } from "@/components/ui/button"
-import { Sparkles, Loader2, CheckCircle, ArrowRight } from "lucide-react"
+import { Sparkles, Loader2, CheckCircle, ArrowRight, Eye } from "lucide-react"
 import { useExtraction } from "@/hooks/use-extraction"
 import { useState, useEffect } from "react"
 import { cn } from "@/lib/utils"
 
-// Cycles through examples to show the input accepts both URLs and descriptions.
-// Pauses when the user focuses or starts typing.
 const PLACEHOLDER_EXAMPLES = [
   "apple.com",
   "A luxury skincare brand for women 35-55...",
@@ -38,7 +36,7 @@ export default function HeroSection() {
   const [placeholderIdx, setPlaceholderIdx] = useState(0)
   const [isFocused, setIsFocused] = useState(false)
 
-  // Cycle placeholder every 3s; stop when focused or user has typed something
+  // Cycle placeholder every 3s — pause when focused or user has typed
   useEffect(() => {
     if (isFocused || url) return
     const id = setInterval(() => {
@@ -47,7 +45,6 @@ export default function HeroSection() {
     return () => clearInterval(id)
   }, [isFocused, url])
 
-  // Border colour reflects input state
   const borderClass = error
     ? "bg-red-400"
     : isSuccess
@@ -56,9 +53,10 @@ export default function HeroSection() {
     ? "bg-gradient-to-r from-blue-500 to-indigo-500"
     : "bg-gradient-to-r from-blue-400 to-indigo-400"
 
-  const shadowClass = isFocused || inputAnimating
-    ? "shadow-lg shadow-blue-500/20"
-    : "shadow-md shadow-blue-500/10"
+  const shadowClass =
+    isFocused || inputAnimating
+      ? "shadow-lg shadow-blue-500/20"
+      : "shadow-md shadow-blue-500/10"
 
   return (
     <section
@@ -68,27 +66,21 @@ export default function HeroSection() {
       <div className="container px-4 md:px-6">
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
 
-          {/* Badge — first in */}
-          <div className="animate-in fade-in slide-in-from-bottom-3 duration-500 inline-flex items-center rounded-full px-4 py-1.5 text-sm font-semibold mb-6 bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-900 border border-blue-200 shadow-sm">
-            <svg
-              className="w-3 h-3 mr-1.5 text-blue-500"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              strokeWidth="2"
-            >
+          {/* Badge */}
+          <div className="animate-in fade-in slide-in-from-bottom-3 duration-700 inline-flex items-center rounded-full px-4 py-1.5 text-sm font-semibold mb-6 bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-900 border border-blue-200 shadow-sm">
+            <svg className="w-3 h-3 mr-1.5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
               <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
             AI-Powered Tone of Voice Guidelines
           </div>
 
           {/* Headline */}
-          <h1 className="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-150 text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl mb-4">
+          <h1 className="animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-200 text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl mb-4">
             Create your tone of voice guidelines in minutes
           </h1>
 
           {/* Subtext */}
-          <p className="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300 text-xl text-muted-foreground max-w-2xl mb-8 hero-lead">
+          <p className="animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-500 text-xl text-muted-foreground max-w-2xl mb-8 hero-lead">
             Stop asking AI to &quot;make it sound good.&quot; Create high-quality, professional{" "}
             <strong>tone of voice guidelines</strong> to make sure you always sound like you.
           </p>
@@ -96,34 +88,52 @@ export default function HeroSection() {
           {/* Form */}
           <form
             onSubmit={handleExtraction}
-            className="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-500 w-full max-w-2xl"
+            className="animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-700 w-full max-w-2xl"
           >
             <div className="w-full mx-auto mb-3">
+
               {/* Gradient border wrapper */}
               <div className={cn("p-[1.5px] rounded-2xl transition-all duration-300", borderClass, shadowClass)}>
                 <div className="flex items-center bg-white rounded-[14px] px-3 py-2 gap-2">
                   <Sparkles className="h-5 w-5 text-blue-500 shrink-0 ml-1" />
-                  <input
-                    ref={inputRef}
-                    type="text"
-                    placeholder={PLACEHOLDER_EXAMPLES[placeholderIdx]}
-                    className="flex-1 py-3 text-base font-medium bg-transparent border-none focus:outline-none focus:ring-0 placeholder:text-gray-400 placeholder:font-normal placeholder:text-sm"
-                    value={url}
-                    onChange={(e) => {
-                      const sanitizedValue = sanitizeInput(e.target.value, url)
-                      setUrl(sanitizedValue)
-                      if (error) clearError()
-                    }}
-                    onFocus={() => setIsFocused(true)}
-                    onBlur={() => setIsFocused(false)}
-                    autoCapitalize="none"
-                    autoCorrect="off"
-                    spellCheck="false"
-                    inputMode="text"
-                    disabled={isExtracting || isSuccess}
-                    aria-label="Website URL or brand description"
-                    aria-describedby={error ? "input-error" : undefined}
-                  />
+
+                  {/* Input + animated placeholder overlay */}
+                  <div className="relative flex-1">
+                    <input
+                      ref={inputRef}
+                      type="text"
+                      // Native placeholder hidden — custom overlay handles it
+                      placeholder=""
+                      className="w-full py-3 text-base font-medium bg-transparent border-none focus:outline-none focus:ring-0"
+                      value={url}
+                      onChange={(e) => {
+                        const sanitizedValue = sanitizeInput(e.target.value, url)
+                        setUrl(sanitizedValue)
+                        if (error) clearError()
+                      }}
+                      onFocus={() => setIsFocused(true)}
+                      onBlur={() => setIsFocused(false)}
+                      autoCapitalize="none"
+                      autoCorrect="off"
+                      spellCheck="false"
+                      inputMode="text"
+                      disabled={isExtracting || isSuccess}
+                      aria-label="Website URL or brand description"
+                      aria-describedby={error ? "input-error" : undefined}
+                    />
+                    {/* Animated placeholder — fades in on each cycle change */}
+                    {!url && (
+                      <div className="absolute inset-0 flex items-center pointer-events-none select-none">
+                        <span
+                          key={placeholderIdx}
+                          className="text-gray-400 text-sm font-normal animate-in fade-in duration-500 truncate"
+                        >
+                          {PLACEHOLDER_EXAMPLES[placeholderIdx]}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
                   <Button
                     type="submit"
                     onClick={() =>
@@ -164,7 +174,7 @@ export default function HeroSection() {
                 </div>
               </div>
 
-              {/* Error message */}
+              {/* Error */}
               {error && (
                 <div
                   id="input-error"
@@ -179,7 +189,7 @@ export default function HeroSection() {
                 </div>
               )}
 
-              {/* Character counter + manual entry link */}
+              {/* Character counter + manual entry */}
               <div className="mt-3 flex items-center gap-3">
                 <div className="flex-1 text-left">
                   {(() => {
@@ -205,23 +215,27 @@ export default function HeroSection() {
               </div>
             </div>
 
-            {/* Secondary CTA — separated by an "or" divider so it reads as an alternative path */}
-            <div className="animate-in fade-in duration-700 delay-700 mt-5 flex items-center gap-3 max-w-xs mx-auto">
-              <div className="flex-1 h-px bg-gray-200" />
-              <span className="text-xs text-gray-400 font-medium">or</span>
-              <div className="flex-1 h-px bg-gray-200" />
+            {/* Secondary CTA — or-divider pattern makes it an alternative, not an afterthought */}
+            <div className="animate-in fade-in duration-700 delay-1000">
+              <div className="mt-5 flex items-center gap-3 max-w-xs mx-auto">
+                <div className="flex-1 h-px bg-gray-200" />
+                <span className="text-xs text-gray-400 font-medium">or</span>
+                <div className="flex-1 h-px bg-gray-200" />
+              </div>
+              <div className="mt-3 text-center">
+                <Link
+                  href="/example"
+                  onClick={() => track("Sample Guide Clicked", { location: "hero" })}
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors group"
+                >
+                  <Eye className="h-3.5 w-3.5 shrink-0" />
+                  See a sample guide first
+                  <ArrowRight className="h-3.5 w-3.5 shrink-0 transition-transform duration-200 group-hover:translate-x-0.5" />
+                </Link>
+              </div>
             </div>
-            <div className="animate-in fade-in duration-700 delay-700 mt-3 text-center">
-              <Link
-                href="/example"
-                onClick={() => track("Sample Guide Clicked", { location: "hero" })}
-                className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
-              >
-                See a sample guide first →
-              </Link>
-            </div>
-          </form>
 
+          </form>
         </div>
       </div>
     </section>
