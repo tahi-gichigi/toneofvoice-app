@@ -213,11 +213,11 @@ export default function HeroSection() {
                 <span className="text-xs text-gray-400 font-medium">or</span>
                 <div className="flex-1 h-px bg-gray-200" />
               </div>
-              <div className="mt-3 text-center">
+              <div className="mt-3">
                 <Link
                   href="/example"
                   onClick={() => track("Sample Guide Clicked", { location: "hero" })}
-                  className="inline-flex items-center gap-1.5 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors group rounded-full bg-gray-100 hover:bg-gray-200 border border-gray-300 px-4 py-1.5"
+                  className="inline-flex items-center justify-center gap-1.5 w-full h-11 rounded-xl border border-gray-300 bg-white hover:bg-gray-50 text-sm font-semibold text-gray-700 hover:text-gray-900 transition-colors group"
                 >
                   <Eye className="h-3.5 w-3.5 shrink-0" />
                   See a sample guide first
