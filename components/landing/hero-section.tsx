@@ -189,34 +189,25 @@ export default function HeroSection() {
                 </div>
               )}
 
-              {/* Character counter + manual entry */}
-              <div className="mt-3 flex items-center gap-3">
-                <div className="flex-1 text-left">
-                  {(() => {
-                    const trimmed = url.trim()
-                    const detection = detectInputType(trimmed)
-                    const isDesc = detection.inputType === "description" && trimmed.includes(" ")
-                    if (!isDesc || error) return null
-                    const len = trimmed.length
-                    return (
-                      <span className="text-xs sm:text-sm font-medium tabular-nums text-muted-foreground" role="status">
-                        {len <= 200 ? `${len}/200 characters` : "Using first 200 characters"}
-                      </span>
-                    )
-                  })()}
-                </div>
-                <Link
-                  href="#hero"
-                  onClick={() => track("Manual Entry Clicked", { location: "hero" })}
-                  className="text-gray-500 underline font-medium text-xs whitespace-nowrap"
-                >
-                  Add details manually here
-                </Link>
-              </div>
+              {/* Character counter */}
+              {(() => {
+                const trimmed = url.trim()
+                const detection = detectInputType(trimmed)
+                const isDesc = detection.inputType === "description" && trimmed.includes(" ")
+                if (!isDesc || error) return null
+                const len = trimmed.length
+                return (
+                  <div className="mt-3 text-left">
+                    <span className="text-xs sm:text-sm font-medium tabular-nums text-muted-foreground" role="status">
+                      {len <= 200 ? `${len}/200 characters` : "Using first 200 characters"}
+                    </span>
+                  </div>
+                )
+              })()}
             </div>
 
             {/* Secondary CTA — or-divider pattern makes it an alternative, not an afterthought */}
-            <div className="animate-in fade-in duration-700 delay-1000">
+            <div className="animate-in fade-in duration-700 delay-700">
               <div className="mt-5 flex items-center gap-3 max-w-xs mx-auto">
                 <div className="flex-1 h-px bg-gray-200" />
                 <span className="text-xs text-gray-400 font-medium">or</span>

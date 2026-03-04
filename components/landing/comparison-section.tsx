@@ -40,14 +40,6 @@ function MobileCellIcon({ cell }: { cell: ComparisonCell }) {
 function AisgLabel() {
   return (
     <div className="flex items-center justify-center gap-2">
-      <div className="w-6 h-6 rounded-md overflow-hidden shadow-sm">
-        <div className="h-full w-full grid grid-cols-2">
-          <div className="bg-primary"></div>
-          <div className="bg-blue-500"></div>
-          <div className="bg-gray-200"></div>
-          <div className="bg-indigo-600"></div>
-        </div>
-      </div>
       <span>TOV App</span>
     </div>
   )
@@ -56,14 +48,6 @@ function AisgLabel() {
 function MobileAisgLabel() {
   return (
     <div className="text-xs text-gray-500 mb-2 flex items-center justify-center gap-1">
-      <div className="w-4 h-4 rounded-sm overflow-hidden">
-        <div className="h-full w-full grid grid-cols-2">
-          <div className="bg-primary"></div>
-          <div className="bg-blue-500"></div>
-          <div className="bg-gray-200"></div>
-          <div className="bg-indigo-600"></div>
-        </div>
-      </div>
       <span>TOV App</span>
     </div>
   )
