@@ -1,3 +1,6 @@
+"use client"
+
+import { useState } from "react"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
 
@@ -26,6 +29,8 @@ export function GuideCover({
   subscriptionTier = 'starter',
   disclaimer,
 }: GuideCoverProps) {
+  const [faviconVisible, setFaviconVisible] = useState(true)
+
   const formattedDate = date || new Date().toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
@@ -37,6 +42,17 @@ export function GuideCover({
   const subtitle = websiteUrl
     ? websiteUrl.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')
     : null
+
+  // Derive favicon from website URL (only for URL-based guides, not descriptions)
+  let faviconUrl: string | null = null
+  if (websiteUrl) {
+    try {
+      const host = new URL(websiteUrl).hostname
+      faviconUrl = `https://www.google.com/s2/favicons?domain=${encodeURIComponent(host)}&sz=64`
+    } catch {
+      // malformed URL - no favicon
+    }
+  }
 
   return (
     <div className={cn("min-h-[60vh] flex flex-col justify-center px-12 md:px-20 py-16 bg-white relative overflow-hidden", className)}>
@@ -71,9 +87,22 @@ export function GuideCover({
         <div className="pt-12 space-y-3 text-gray-500 animate-in fade-in slide-in-from-bottom-2 duration-700 delay-500 max-w-3xl">
           <p className="text-sm transition-colors duration-300 hover:text-gray-600">{formattedDate}</p>
           {subtitle && (
-            <p className="text-sm font-medium text-gray-900 transition-all duration-300 hover:translate-x-1">
-              {subtitle}
-            </p>
+            <div className="flex items-center gap-2.5">
+              {faviconUrl && faviconVisible && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={faviconUrl}
+                  alt=""
+                  width={24}
+                  height={24}
+                  className="rounded-lg ring-1 ring-black/[0.06] flex-shrink-0 object-contain"
+                  onError={() => setFaviconVisible(false)}
+                />
+              )}
+              <p className="text-sm font-medium text-gray-900 transition-all duration-300 hover:translate-x-1">
+                {subtitle}
+              </p>
+            </div>
           )}
           {disclaimer && (
             <p className="text-xs text-gray-400 italic">{disclaimer}</p>

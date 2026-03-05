@@ -75,7 +75,7 @@ export default async function DashboardPage() {
           {guides && guides.length > 0 ? (
             <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {guides.map((g) => {
-                const websiteUrl = (g.brand_details as { website_url?: string } | null)?.website_url;
+                const websiteUrl = (g.brand_details as { websiteUrl?: string } | null)?.websiteUrl;
                 let faviconUrl: string | undefined;
                 if (websiteUrl) {
                   try {
