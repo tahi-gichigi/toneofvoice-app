@@ -5,6 +5,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Mail, ArrowLeft } from "lucide-react";
 import { createClient } from "@/lib/supabase-browser";
+import { classifyAuthError } from "@/lib/auth-errors";
 import { Button } from "@/components/ui/button";
 import { AuthError } from "@/components/ui/auth-error";
 
@@ -28,12 +29,12 @@ export default function ForgotPasswordPage() {
         redirectTo: `${window.location.origin}/reset-password`,
       });
       if (err) {
-        setError(err.message);
+        setError(classifyAuthError(err).message);
         return;
       }
       setSuccess(true);
     } catch (error) {
-      setError(error instanceof Error ? error.message : "Failed to send reset email");
+      setError(classifyAuthError(error).message);
       console.error("[forgot-password] Error:", error);
     } finally {
       setLoading(false);
@@ -53,6 +54,7 @@ export default function ForgotPasswordPage() {
           </p>
           <p className="mb-6 text-center text-xs text-gray-500">
             Click the link in the email to reset your password. The link will expire in 1 hour.
+            If you don't receive an email within a few minutes, check you're using the email you signed up with.
           </p>
           <Link href="/sign-in">
             <Button variant="outline" className="w-full">

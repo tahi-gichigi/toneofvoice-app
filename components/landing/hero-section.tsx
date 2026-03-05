@@ -10,10 +10,10 @@ import { cn } from "@/lib/utils"
 
 const PLACEHOLDER_EXAMPLES = [
   "apple.com",
-  "A luxury skincare brand for women 35-55...",
+  "A luxury skincare brand for women 35+",
   "spotify.com",
-  "An independent coffee shop with personality...",
-  "Your website URL or a short brand description",
+  "An indie coffee shop with personality",
+  "Your website URL or brand description",
 ]
 
 export default function HeroSection() {
@@ -210,16 +210,15 @@ export default function HeroSection() {
             <div className="animate-in fade-in duration-700 delay-700">
               <div className="mt-5 flex items-center gap-3 max-w-xs mx-auto">
                 <div className="flex-1 h-px bg-gray-200" />
-                <span className="text-xs text-gray-400 font-medium">or</span>
-                <div className="flex-1 h-px bg-gray-200" />
+                <span className="text-xs text-gray-500 font-semibold">or</span>
+                <div className="flex-1 h-px bg-gray-300" />
               </div>
               <div className="mt-3 text-center">
                 <Link
                   href="/example"
                   onClick={() => track("Sample Guide Clicked", { location: "hero" })}
-                  className="inline-flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors group"
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors group rounded-full border border-gray-300 hover:border-gray-400 px-4 py-1.5"
                 >
-                  <Eye className="h-3.5 w-3.5 shrink-0" />
                   See a sample guide first
                   <ArrowRight className="h-3.5 w-3.5 shrink-0 transition-transform duration-200 group-hover:translate-x-0.5" />
                 </Link>

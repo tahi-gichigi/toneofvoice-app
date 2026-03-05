@@ -9,3 +9,21 @@ export default function PostHogClient() {
   })
   return posthogClient
 }
+
+/**
+ * Fire-and-forget server-side exception capture.
+ * Safe to call from any API route catch block without awaiting.
+ */
+export async function captureServerError(
+  error: unknown,
+  context: { endpoint: string; userId?: string; [key: string]: unknown }
+) {
+  try {
+    const err = error instanceof Error ? error : new Error(String(error))
+    const client = PostHogClient()
+    client.captureException(err, context.userId ?? "server", context)
+    await client.shutdown()
+  } catch {
+    // Never let observability code break the app
+  }
+}
