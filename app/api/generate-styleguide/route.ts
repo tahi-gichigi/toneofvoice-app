@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { renderStyleGuideTemplate, renderFullGuideFromPreview } from "@/lib/template-processor"
+import { captureServerError } from "@/lib/posthog"
 
 // Simplified validation function - only new format
 function validateBrandDetails(details: any) {
@@ -116,6 +117,7 @@ export async function POST(request: Request) {
     }
   } catch (error) {
     console.error("Error in generate-styleguide API:", error, error instanceof Error ? error.stack : "No stack trace")
+    captureServerError(error, { endpoint: "/api/generate-styleguide" })
 
     // Return error response
     return NextResponse.json(

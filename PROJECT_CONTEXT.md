@@ -1,6 +1,6 @@
 # Tone of Voice App - Project Context
 
-**Last Updated:** 2026-02-18
+**Last Updated:** 2026-03-05
 **Project:** AI-powered tone of voice guide generator
 **Stack:** Next.js 15, React 19, TypeScript, Tailwind, Supabase, Stripe, OpenAI, Firecrawl
 
