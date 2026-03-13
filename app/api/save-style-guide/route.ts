@@ -1,6 +1,5 @@
 import { createClient, MissingSupabaseConfigError } from "@/lib/supabase-server";
 import { NextResponse } from "next/server";
-import { captureServerError } from "@/lib/posthog";
 
 /** Save a style guide for the authenticated user. */
 export async function POST(req: Request) {
@@ -137,7 +136,6 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Service unavailable" }, { status: 503 });
     }
     console.error("[save-style-guide] Error:", e);
-    captureServerError(e, { endpoint: "/api/save-style-guide" });
     return NextResponse.json(
       { error: "Failed to save guide" },
       { status: 500 }

@@ -5,7 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import "./globals.css"
 import { Toaster } from "@/components/ui/toaster"
 import { Analytics } from "@vercel/analytics/next"
-import { PostHogProvider } from "@/components/PostHogProvider"
+import { MixpanelProvider } from "@/components/MixpanelProvider"
 import { AuthProvider } from "@/components/AuthProvider"
 
 const geistSans = Geist({ subsets: ["latin"], display: "swap" })
@@ -338,7 +338,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           />
         </noscript>
 
-        <PostHogProvider>
+        <MixpanelProvider>
           <AuthProvider>
             <ThemeProvider attribute="class" defaultTheme="light">
               {children}
@@ -346,7 +346,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </ThemeProvider>
           </AuthProvider>
           <Analytics />
-        </PostHogProvider>
+        </MixpanelProvider>
       </body>
     </html>
   )
