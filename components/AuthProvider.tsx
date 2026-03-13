@@ -33,12 +33,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         if (!cancelled) {
           setUser(session?.user ?? null);
           setLoading(false);
-          // Identify user in Mixpanel on every sign-in / session restore
-          if (session?.user) {
-            mpIdentify(session.user.id, {
-              $email: session.user.email,
-            });
-          }
         }
       });
 
@@ -65,6 +59,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setDone();
     }
   }, []);
+
+  // Identify user in Mixpanel once both auth and Mixpanel are ready.
+  // Delayed slightly so MixpanelProvider's useEffect (init) runs first.
+  React.useEffect(() => {
+    if (!user) return;
+    const timer = setTimeout(() => {
+      mpIdentify(user.id, { $email: user.email });
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [user]);
 
   const signOut = React.useCallback(async () => {
     const supabase = createClient();

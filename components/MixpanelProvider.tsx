@@ -30,8 +30,9 @@ export function MixpanelProvider({ children }: MixpanelProviderProps) {
       persistence: "localStorage",
       // EU data residency - project hosted on eu.mixpanel.com
       api_host: "https://api-eu.mixpanel.com",
-      // Session replay: capture 100% of sessions (free plan allows 10k/mo)
+      // Session replay + heatmaps: capture 100% of sessions (free plan allows 10k/mo)
       record_sessions_percent: 100,
+      record_heatmap_data: true,
     })
   }, [])
 

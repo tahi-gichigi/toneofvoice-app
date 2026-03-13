@@ -10,6 +10,8 @@ type Properties = Record<string, string | number | boolean | null | undefined>
 function isReady() {
   if (typeof window === "undefined") return false
   if (process.env.NODE_ENV === "development") return false
+  // Guard against calls before MixpanelProvider has run init()
+  if (!mixpanel.__loaded) return false
   return true
 }
 
