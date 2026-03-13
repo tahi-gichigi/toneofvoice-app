@@ -117,8 +117,6 @@ export async function POST(request: Request) {
     }
   } catch (error) {
     console.error("Error in generate-styleguide API:", error, error instanceof Error ? error.stack : "No stack trace")
-    captureServerError(error, { endpoint: "/api/generate-styleguide" })
-
     // Return error response
     return NextResponse.json(
       {

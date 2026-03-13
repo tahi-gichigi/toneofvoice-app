@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server"
 import puppeteer from "puppeteer-core"
 import { getChromeLaunchOptions } from "@/lib/pdf-chrome"
-import { captureServerError } from "@/lib/posthog"
 
 // Allow longer run for PDF generation (cold start + render)
 export const maxDuration = 60
@@ -74,7 +73,6 @@ export async function POST(request: Request) {
     })
   } catch (err) {
     console.error("[export-pdf] PDF generation failed:", err)
-    captureServerError(err, { endpoint: "/api/export-pdf" })
     if (browser) {
       try {
         await browser.close()

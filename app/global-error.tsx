@@ -1,8 +1,5 @@
 "use client"
 
-import { useEffect } from "react"
-import posthog from "posthog-js"
-
 // Catches React render errors that escape all error boundaries.
 // Next.js renders this instead of the root layout on a fatal crash.
 export default function GlobalError({
@@ -12,10 +9,6 @@ export default function GlobalError({
   error: Error & { digest?: string }
   reset: () => void
 }) {
-  useEffect(() => {
-    posthog.captureException(error, { tags: { boundary: "global" } })
-  }, [error])
-
   return (
     <html>
       <body className="flex min-h-screen items-center justify-center bg-white">
