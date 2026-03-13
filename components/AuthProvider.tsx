@@ -3,6 +3,7 @@
 import * as React from "react";
 import { createClient } from "@/lib/supabase-browser";
 import type { User } from "@supabase/supabase-js";
+import { identify as mpIdentify } from "@/lib/mixpanel";
 
 type AuthContextValue = {
   user: User | null;
@@ -32,6 +33,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         if (!cancelled) {
           setUser(session?.user ?? null);
           setLoading(false);
+          // Identify user in Mixpanel on every sign-in / session restore
+          if (session?.user) {
+            mpIdentify(session.user.id, {
+              $email: session.user.email,
+            });
+          }
         }
       });
 
