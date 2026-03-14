@@ -33,7 +33,16 @@ export function MixpanelProvider({ children }: MixpanelProviderProps) {
       // Session replay + heatmaps: capture 100% of sessions (free plan allows 10k/mo)
       record_sessions_percent: 100,
       record_heatmap_data: true,
+      // Discard replays shorter than 8s - removes low-signal bounces at SDK level
+      record_min_ms: 8000,
     })
+
+    // If this browser was previously flagged as an internal user, suppress all tracking.
+    // This runs after init so the SDK is ready to accept super properties.
+    if (localStorage.getItem("mp_internal_user") === "true") {
+      mixpanel.register({ $ignore: true })
+      mixpanel.stop_session_recording()
+    }
   }, [])
 
   return <>{children}</>

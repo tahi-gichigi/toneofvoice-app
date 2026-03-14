@@ -12,6 +12,7 @@ import {
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { LogOut, LayoutDashboard, Loader2 } from "lucide-react";
 import { track } from "@vercel/analytics";
+import { track as mpTrack } from "@/lib/mixpanel";
 
 export function HeaderAuth() {
   const { user, loading, signOut } = useAuth();
@@ -29,7 +30,7 @@ export function HeaderAuth() {
       <Button asChild size="sm">
         <Link
           href="/sign-up"
-          onClick={() => track("Sign Up Clicked", { location: "header" })}
+          onClick={() => { track("Sign Up Clicked", { location: "header" }); mpTrack("Sign Up Clicked", { location: "header" }) }}
         >
           Sign up
         </Link>

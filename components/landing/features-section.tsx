@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { track } from "@vercel/analytics"
+import { track as mpTrack } from "@/lib/mixpanel"
 import { FEATURES_SOLUTIONS, FEATURES_PROBLEMS } from "@/lib/landing-data"
 
 export default function FeaturesSection() {
@@ -25,6 +26,9 @@ export default function FeaturesSection() {
               onClick={() => {
                 setShowSolutions(!showSolutions)
                 track("Toggle Problems Solutions", {
+                  showing: !showSolutions ? "solutions" : "problems",
+                })
+                mpTrack("Toggle Problems Solutions", {
                   showing: !showSolutions ? "solutions" : "problems",
                 })
               }}

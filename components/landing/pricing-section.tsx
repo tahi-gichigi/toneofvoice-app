@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation"
 import { track } from "@vercel/analytics"
+import { track as mpTrack } from "@/lib/mixpanel"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { PRICING_TIERS, TIER_THEME, type PricingTier } from "@/lib/landing-data"
@@ -79,6 +80,11 @@ export default function PricingSection() {
 
   const handleSelect = (tier: PricingTier) => {
     track("Pricing Card Clicked", {
+      plan: tier.id,
+      price: tier.price,
+      location: "homepage",
+    })
+    mpTrack("Pricing Card Clicked", {
       plan: tier.id,
       price: tier.price,
       location: "homepage",

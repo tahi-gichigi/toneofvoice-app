@@ -4,6 +4,7 @@ import * as React from "react";
 import { createClient } from "@/lib/supabase-browser";
 import type { User } from "@supabase/supabase-js";
 import { identify as mpIdentify } from "@/lib/mixpanel";
+import mixpanel from "mixpanel-browser";
 
 type AuthContextValue = {
   user: User | null;
@@ -66,6 +67,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (!user) return;
     const timer = setTimeout(() => {
       mpIdentify(user.id, { $email: user.email });
+
+      // Self-exclusion: suppress analytics for internal team emails.
+      // Sets a localStorage flag so MixpanelProvider can also suppress on next page load.
+      const internalEmails = (process.env.NEXT_PUBLIC_INTERNAL_EMAILS ?? "")
+        .split(",")
+        .map((e) => e.trim().toLowerCase())
+        .filter(Boolean);
+
+      const userEmail = user.email?.toLowerCase() ?? "";
+      if (internalEmails.length > 0 && internalEmails.includes(userEmail)) {
+        localStorage.setItem("mp_internal_user", "true");
+        try {
+          // Drop all subsequent events client-side; never reach Mixpanel servers
+          mixpanel.register({ $ignore: true });
+          mixpanel.stop_session_recording();
+        } catch {
+          // Mixpanel may not be initialised (e.g. dev mode) - safe to ignore
+        }
+      }
     }, 500);
     return () => clearTimeout(timer);
   }, [user]);

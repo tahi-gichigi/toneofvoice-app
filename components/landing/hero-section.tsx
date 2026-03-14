@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { track } from "@vercel/analytics"
+import { track as mpTrack } from "@/lib/mixpanel"
 import { Button } from "@/components/ui/button"
 import { Sparkles, Loader2, CheckCircle, ArrowRight, Eye } from "lucide-react"
 import { useExtraction } from "@/hooks/use-extraction"
@@ -137,7 +138,8 @@ export default function HeroSection() {
                   <Button
                     type="submit"
                     onClick={() =>
-                      track("Generate Button Clicked", { hasUrl: !!url.trim(), location: "hero" })
+                      track("Generate Button Clicked", { hasUrl: !!url.trim(), location: "hero" }) ||
+                      mpTrack("Generate Button Clicked", { hasUrl: !!url.trim(), location: "hero" })
                     }
                     disabled={isExtracting || isSuccess || !isInputValid()}
                     className={cn(
@@ -230,7 +232,7 @@ export default function HeroSection() {
               <div className="mt-3 text-center">
                 <Link
                   href="/example"
-                  onClick={() => track("Sample Guide Clicked", { location: "hero" })}
+                  onClick={() => { track("Sample Guide Clicked", { location: "hero" }); mpTrack("Sample Guide Clicked", { location: "hero" }) }}
                   className="inline-flex items-center gap-1.5 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors group rounded-full border border-gray-300 hover:border-gray-400 px-4 py-1.5"
                 >
                   See a sample guide first
