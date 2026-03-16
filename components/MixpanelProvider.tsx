@@ -41,6 +41,14 @@ export function MixpanelProvider({ children }: MixpanelProviderProps) {
       record_mask_all_inputs: false,
     })
 
+    // Debug: log actual runtime config to confirm masking settings are applied
+    console.log("[Mixpanel] Config check:", {
+      record_mask_all_text: mixpanel.get_config("record_mask_all_text"),
+      record_mask_all_inputs: mixpanel.get_config("record_mask_all_inputs"),
+      record_sessions_percent: mixpanel.get_config("record_sessions_percent"),
+      api_host: mixpanel.get_config("api_host"),
+    })
+
     // If this browser was previously flagged as an internal user, suppress all tracking.
     // This runs after init so the SDK is ready to accept super properties.
     if (localStorage.getItem("mp_internal_user") === "true") {
