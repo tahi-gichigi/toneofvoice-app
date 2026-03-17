@@ -23,13 +23,13 @@ export const PREVIEW_H1_STYLE: CSSProperties = {
 }
 
 // H2 - Section headings (large, premium)
-export const PREVIEW_H2_CLASS = "text-5xl md:text-6xl font-bold tracking-tight text-gray-900 leading-[1.1]"
+export const PREVIEW_H2_CLASS = "text-5xl md:text-6xl font-bold tracking-tight text-gray-900 leading-[1.1] text-balance"
 export const PREVIEW_H2_STYLE: CSSProperties = {
   ...SERIF_FONT_STYLE,
 }
 
 // H3 - Subsection headings (medium-large, serif)
-export const PREVIEW_H3_CLASS = "text-2xl md:text-3xl font-bold text-gray-900"
+export const PREVIEW_H3_CLASS = "text-2xl md:text-3xl font-bold text-gray-900 text-balance"
 export const PREVIEW_H3_STYLE: CSSProperties = {
   ...SERIF_FONT_STYLE,
   hyphens: "none",
@@ -39,11 +39,11 @@ export const PREVIEW_H3_STYLE: CSSProperties = {
 // H4 - Sub-subsection headings
 export const PREVIEW_H4_CLASS = "text-lg font-medium text-gray-700"
 
-// Eyebrow label (like "BRAND IDENTITY SYSTEM" on cover)
-export const PREVIEW_EYEBROW_CLASS = "text-xs font-medium uppercase tracking-widest text-gray-500"
+// Eyebrow label (like "BRAND IDENTITY SYSTEM" on cover) — gray-600 for WCAG AA at 12px
+export const PREVIEW_EYEBROW_CLASS = "text-xs font-medium uppercase tracking-widest text-gray-600"
 
 // Body text - generous line height for readability
-export const PREVIEW_BODY_CLASS = "text-base md:text-lg leading-relaxed text-gray-600"
+export const PREVIEW_BODY_CLASS = "text-base md:text-lg leading-relaxed text-gray-600 text-pretty"
 export const PREVIEW_BODY_STYLE: CSSProperties = {
   orphans: 2,
   widows: 2,
@@ -62,8 +62,8 @@ export const PREVIEW_HR_CLASS = "border-gray-200"
 // Decorative bar under H2 (matches cover page aesthetic)
 export const PREVIEW_H2_BAR_CLASS = "h-1 w-24 bg-gray-900 rounded-full"
 
-// Section description (italic explainer text below H2)
-export const PREVIEW_SECTION_DESCRIPTION_CLASS = "text-sm text-gray-500 italic"
+// Section description (explainer text below H2) — gray-600 passes WCAG AA; italic removed since small+italic+light is a compound readability hit
+export const PREVIEW_SECTION_DESCRIPTION_CLASS = "text-sm text-gray-600"
 
 // Spacing tokens
 export const PREVIEW_H2_MARGIN_TOP = "mt-24" // Generous spacing above sections

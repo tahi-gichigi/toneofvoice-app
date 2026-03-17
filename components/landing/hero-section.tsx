@@ -68,7 +68,7 @@ export default function HeroSection() {
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
 
           {/* Badge */}
-          <div className="animate-in fade-in slide-in-from-bottom-3 duration-700 inline-flex items-center rounded-full px-4 py-1.5 text-sm font-semibold mb-6 bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-900 border border-blue-200 shadow-sm">
+          <div className="animate-in fade-in motion-safe:slide-in-from-bottom-3 duration-700 inline-flex items-center rounded-full px-4 py-1.5 text-sm font-semibold mb-6 bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-900 border border-blue-200 shadow-sm">
             <svg className="w-3 h-3 mr-1.5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
               <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
@@ -76,12 +76,12 @@ export default function HeroSection() {
           </div>
 
           {/* Headline */}
-          <h1 className="animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-200 text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl mb-4">
+          <h1 className="animate-in fade-in motion-safe:slide-in-from-bottom-4 duration-1000 delay-200 text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl mb-4 text-balance">
             Create your tone of voice guidelines in minutes
           </h1>
 
           {/* Subtext */}
-          <p className="animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-500 text-xl text-muted-foreground max-w-2xl mb-8 hero-lead">
+          <p className="animate-in fade-in motion-safe:slide-in-from-bottom-4 duration-1000 delay-500 text-xl text-muted-foreground max-w-2xl mb-8 hero-lead">
             Stop asking AI to &quot;make it sound good.&quot; Create high-quality, professional{" "}
             <strong>tone of voice guidelines</strong> to make sure you always sound like you.
           </p>
@@ -89,12 +89,12 @@ export default function HeroSection() {
           {/* Form */}
           <form
             onSubmit={handleExtraction}
-            className="animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-700 w-full max-w-2xl"
+            className="animate-in fade-in motion-safe:slide-in-from-bottom-4 duration-1000 delay-700 w-full max-w-2xl"
           >
             <div className="w-full mx-auto mb-3">
 
               {/* Gradient border wrapper */}
-              <div className={cn("p-[1.5px] rounded-2xl transition-all duration-300", borderClass, shadowClass)}>
+              <div className={cn("p-[1.5px] rounded-[15.5px] transition-all duration-300", borderClass, shadowClass)}>
                 <div className="flex items-center bg-white rounded-[14px] px-3 py-2 gap-2">
                   <Sparkles className="h-5 w-5 text-blue-500 shrink-0 ml-1" />
 
@@ -105,7 +105,7 @@ export default function HeroSection() {
                       type="text"
                       // Native placeholder hidden — custom overlay handles it
                       placeholder=""
-                      className="w-full py-3 text-base font-medium bg-transparent border-none focus:outline-none focus:ring-0"
+                      className="w-full py-3 text-base font-medium bg-transparent border-none outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:rounded-sm"
                       value={url}
                       onChange={(e) => {
                         const sanitizedValue = sanitizeInput(e.target.value, url)
@@ -144,8 +144,8 @@ export default function HeroSection() {
                     disabled={isExtracting || isSuccess || !isInputValid()}
                     className={cn(
                       "shrink-0 rounded-xl px-5 h-11 bg-black text-white font-semibold text-sm",
-                      "hover:bg-gray-800 focus:bg-gray-800 focus:ring-2 focus:ring-gray-400 focus:ring-offset-1",
-                      "transition-all duration-200",
+                      "hover:bg-gray-800 focus-visible:bg-gray-800 focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-1",
+                      "active:not-disabled:scale-[0.96] transition-[background-color,box-shadow,opacity,scale] duration-200",
                       isSuccess && "bg-green-500 hover:bg-green-600 focus:ring-green-400",
                       !isInputValid() && !isExtracting && !isSuccess && "opacity-75 cursor-not-allowed"
                     )}

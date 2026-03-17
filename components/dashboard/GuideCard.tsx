@@ -104,7 +104,7 @@ export function GuideCard({ id, title, planType, updatedAt, faviconUrl }: GuideC
 
   return (
     <>
-      <div className="group relative flex flex-col rounded-lg border bg-white p-4 transition hover:border-gray-300 dark:bg-gray-950 dark:hover:border-gray-700">
+      <div className="group relative flex flex-col rounded-lg border bg-white p-4 transition-[border-color,box-shadow] hover:border-gray-300 hover:shadow-md dark:bg-gray-950 dark:hover:border-gray-700">
         <Link
           href={`/guide?guideId=${id}`}
           className="flex flex-col flex-1"
@@ -119,7 +119,7 @@ export function GuideCard({ id, title, planType, updatedAt, faviconUrl }: GuideC
                 width={32}
                 height={32}
                 onError={handleFaviconError}
-                className="h-8 w-8 object-contain"
+                className="h-8 w-8 object-contain rounded ring-1 ring-black/[0.06]"
               />
             </span>
           ) : (

@@ -58,7 +58,7 @@ export function ExampleGuideSidebar({
             <h2 className="text-sm font-semibold text-gray-900 truncate tracking-tight">
               {brandName}
             </h2>
-            <p className="text-xs text-gray-500 truncate">Tone of Voice Guidelines</p>
+            <p className="text-xs text-gray-600 truncate">Tone of Voice Guidelines</p>
           </div>
           {/* Brand initial in icon-collapsed mode */}
           <div className="hidden group-data-[collapsible=icon]:flex w-8 h-8 rounded-full bg-gray-100 text-gray-700 font-semibold text-sm items-center justify-center shrink-0">
@@ -86,7 +86,7 @@ export function ExampleGuideSidebar({
                       isActive={isActive}
                       tooltip={section.title}
                       className={cn(
-                        "h-10 transition-all duration-300 ease-out",
+                        "h-10 transition-[background-color,color,transform,box-shadow] duration-300 ease-out",
                         isActive
                           ? "bg-gray-100 font-medium text-gray-900 shadow-sm scale-[1.02]"
                           : "text-gray-600 hover:text-gray-900 hover:bg-gray-50/80 hover:scale-[1.01]"
@@ -95,7 +95,7 @@ export function ExampleGuideSidebar({
                       <div className="relative flex items-center justify-center">
                         <Icon
                           className={cn(
-                            "size-4 transition-all duration-300",
+                            "size-4 transition-[color,transform] duration-300",
                             isActive
                               ? "text-blue-600 scale-110"
                               : "text-gray-500 group-hover:scale-105"
@@ -125,7 +125,7 @@ export function ExampleGuideSidebar({
             <p className="text-xs font-medium text-gray-700">
               Build your own guide
             </p>
-            <p className="text-[11px] text-gray-500 leading-relaxed">
+            <p className="text-xs text-gray-600 leading-relaxed">
               Enter your website or describe your brand - we&apos;ll generate a complete tone of voice guide like this one.
             </p>
             <Button

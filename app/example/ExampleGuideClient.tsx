@@ -93,7 +93,7 @@ export default function ExampleGuideClient() {
           </div>
           <div className="flex flex-1 items-center justify-end gap-3">
             <span className="hidden md:block text-xs text-gray-400">Sample guide</span>
-            <Button asChild size="sm" className="bg-gray-900 hover:bg-gray-800 text-white shadow-sm">
+            <Button asChild size="sm" className="bg-gray-900 hover:bg-gray-800 text-white shadow-sm active:scale-[0.96] transition-[transform,background-color,box-shadow]">
               <Link href="/">
                 Build yours free
                 <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
@@ -143,12 +143,12 @@ function ExampleConversionBlock() {
           You just read the whole thing
         </p>
         <h2
-          className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight"
+          className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight text-balance"
           style={{ fontFamily: "var(--font-display), serif" }}
         >
           Build your brand&apos;s guide in 5 minutes
         </h2>
-        <p className="text-base text-gray-500 leading-relaxed">
+        <p className="text-base text-gray-600 leading-relaxed text-pretty">
           Enter your website or describe your brand. We generate a complete tone
           of voice guide - sections, examples, word list, AI cleanup rules, all of it.
         </p>
@@ -156,7 +156,7 @@ function ExampleConversionBlock() {
           <Button
             asChild
             size="lg"
-            className="bg-gray-900 hover:bg-gray-800 text-white shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 px-8"
+            className="bg-gray-900 hover:bg-gray-800 text-white shadow-md hover:shadow-lg transition-[transform,background-color,box-shadow] duration-300 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.96] px-8"
           >
             <Link href="/">
               Get Started free

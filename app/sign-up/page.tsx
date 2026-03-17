@@ -121,7 +121,7 @@ function SignUpContent() {
       <div className="flex min-h-screen w-full items-center justify-center bg-white py-12 px-4">
         <div className="w-full max-w-sm rounded-3xl border border-blue-100 bg-gradient-to-b from-sky-50/50 to-white p-8 shadow-xl shadow-opacity-10 text-center">
           <h2 className="mb-2 text-xl font-semibold">Check your email</h2>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-gray-600">
             We sent a confirmation link to <strong>{email}</strong>. Click the link to activate your account.
           </p>
           <Button asChild variant="outline" className="mt-6 w-full">
@@ -138,7 +138,7 @@ function SignUpContent() {
         <h2 className="mb-2 text-center text-2xl font-semibold">
           Create your account
         </h2>
-        <p className="mb-6 text-center text-sm text-gray-500">
+        <p className="mb-6 text-center text-sm text-gray-600">
           Save, edit, and manage your guidelines.
         </p>
 
@@ -146,7 +146,7 @@ function SignUpContent() {
           type="button"
           onClick={handleGoogleSignUp}
           disabled={loading}
-          className="mb-4 flex w-full items-center justify-center gap-2 rounded-xl border bg-white py-2.5 text-sm font-medium transition hover:bg-gray-50 disabled:opacity-50"
+          className="mb-4 flex w-full items-center justify-center gap-2 rounded-xl border bg-white py-2.5 text-sm font-medium transition-[background-color,box-shadow] hover:bg-gray-50 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-1 active:scale-[0.96]"
         >
           <img
             src="https://www.svgrepo.com/show/475656/google-color.svg"
@@ -158,7 +158,7 @@ function SignUpContent() {
 
         <div className="my-4 flex w-full items-center">
           <div className="flex-grow border-t border-dashed border-gray-200" />
-          <span className="mx-2 text-xs text-gray-400">or sign up with email</span>
+          <span className="mx-2 text-xs text-gray-500">or sign up with email</span>
           <div className="flex-grow border-t border-dashed border-gray-200" />
         </div>
 
@@ -169,7 +169,7 @@ function SignUpContent() {
               placeholder="Full name"
               type="text"
               value={name}
-              className="w-full rounded-xl border border-gray-200 bg-gray-50 py-2 pl-10 pr-3 text-sm text-black focus:outline-none focus:ring-2 focus:ring-blue-200"
+              className="w-full rounded-xl border border-gray-200 bg-gray-50 py-2 pl-10 pr-3 text-sm text-black outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
               onChange={(e) => setName(e.target.value)}
             />
           </div>
@@ -180,7 +180,7 @@ function SignUpContent() {
               type="email"
               value={email}
               required
-              className="w-full rounded-xl border border-gray-200 bg-gray-50 py-2 pl-10 pr-3 text-sm text-black focus:outline-none focus:ring-2 focus:ring-blue-200"
+              className="w-full rounded-xl border border-gray-200 bg-gray-50 py-2 pl-10 pr-3 text-sm text-black outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
@@ -192,7 +192,7 @@ function SignUpContent() {
               value={password}
               required
               minLength={8}
-              className="w-full rounded-xl border border-gray-200 bg-gray-50 py-2 pl-10 pr-3 text-sm text-black focus:outline-none focus:ring-2 focus:ring-blue-200"
+              className="w-full rounded-xl border border-gray-200 bg-gray-50 py-2 pl-10 pr-3 text-sm text-black outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
@@ -202,7 +202,7 @@ function SignUpContent() {
           </Button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-gray-500">
+        <p className="mt-6 text-center text-sm text-gray-600">
           Already have an account?{" "}
           <Link
             href={redirectTo !== "/auth/claim" ? `/sign-in?redirectTo=${encodeURIComponent(redirectTo)}` : "/sign-in"}

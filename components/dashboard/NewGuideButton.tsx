@@ -26,7 +26,7 @@ export function NewGuideButton({ variant = "button", limit = 1, used = 0, classN
           <button
             type="button"
             onClick={() => setUpgradeModalOpen(true)}
-            className="flex flex-col items-center justify-center rounded-lg border border-dashed p-8 text-muted-foreground transition hover:border-gray-300 hover:text-foreground dark:hover:border-gray-700"
+            className="flex flex-col items-center justify-center rounded-lg border border-dashed p-8 text-muted-foreground transition-[border-color,color,box-shadow] hover:border-gray-300 hover:text-foreground hover:shadow-sm dark:hover:border-gray-700"
           >
             <Plus className="h-8 w-8" />
             <span className="mt-2 text-sm">New guide</span>
@@ -51,7 +51,7 @@ export function NewGuideButton({ variant = "button", limit = 1, used = 0, classN
       <>
         <button
           onClick={() => setModalOpen(true)}
-          className="flex flex-col items-center justify-center rounded-lg border border-dashed p-8 text-muted-foreground transition hover:border-gray-300 hover:text-foreground dark:hover:border-gray-700"
+          className="flex flex-col items-center justify-center rounded-lg border border-dashed p-8 text-muted-foreground transition-[border-color,color,box-shadow] hover:border-gray-300 hover:text-foreground hover:shadow-sm dark:hover:border-gray-700"
         >
           <Plus className="h-8 w-8" />
           <span className="mt-2 text-sm">New guide</span>

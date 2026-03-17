@@ -4,7 +4,7 @@ import * as React from "react";
 import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { Lock, LogIn, Mail } from "lucide-react";
+import { Lock, Mail } from "lucide-react";
 import { createClient } from "@/lib/supabase-browser";
 import { Button } from "@/components/ui/button";
 import { AuthError } from "@/components/ui/auth-error";
@@ -79,11 +79,8 @@ function SignInContent() {
   return (
     <div className="flex min-h-screen w-full items-center justify-center bg-white py-12 px-4">
       <div className="w-full max-w-sm rounded-3xl border border-blue-100 bg-gradient-to-b from-sky-50/50 to-white p-8 shadow-xl shadow-opacity-10">
-        <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-lg shadow-opacity-5">
-          <LogIn className="h-7 w-7 text-black" />
-        </div>
         <h2 className="mb-2 text-center text-2xl font-semibold">Sign in</h2>
-        <p className="mb-6 text-center text-sm text-gray-500">
+        <p className="mb-6 text-center text-sm text-gray-600">
           Access your account to manage guidelines
         </p>
 
@@ -91,7 +88,7 @@ function SignInContent() {
           type="button"
           onClick={handleGoogleSignIn}
           disabled={loading}
-          className="mb-4 flex w-full items-center justify-center gap-2 rounded-xl border bg-white py-2.5 text-sm font-medium transition hover:bg-gray-50 disabled:opacity-50"
+          className="mb-4 flex w-full items-center justify-center gap-2 rounded-xl border bg-white py-2.5 text-sm font-medium transition-[background-color,box-shadow] hover:bg-gray-50 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-1 active:scale-[0.96]"
         >
           <img
             src="https://www.svgrepo.com/show/475656/google-color.svg"
@@ -103,7 +100,7 @@ function SignInContent() {
 
         <div className="my-4 flex w-full items-center">
           <div className="flex-grow border-t border-dashed border-gray-200" />
-          <span className="mx-2 text-xs text-gray-400">or sign in with email</span>
+          <span className="mx-2 text-xs text-gray-500">or sign in with email</span>
           <div className="flex-grow border-t border-dashed border-gray-200" />
         </div>
 
@@ -115,7 +112,7 @@ function SignInContent() {
               type="email"
               value={email}
               required
-              className="w-full rounded-xl border border-gray-200 bg-gray-50 py-2 pl-10 pr-3 text-sm text-black focus:outline-none focus:ring-2 focus:ring-blue-200"
+              className="w-full rounded-xl border border-gray-200 bg-gray-50 py-2 pl-10 pr-3 text-sm text-black outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
@@ -126,7 +123,7 @@ function SignInContent() {
               type="password"
               value={password}
               required
-              className="w-full rounded-xl border border-gray-200 bg-gray-50 py-2 pl-10 pr-3 text-sm text-black focus:outline-none focus:ring-2 focus:ring-blue-200"
+              className="w-full rounded-xl border border-gray-200 bg-gray-50 py-2 pl-10 pr-3 text-sm text-black outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
@@ -144,7 +141,7 @@ function SignInContent() {
           </Button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-gray-500">
+        <p className="mt-6 text-center text-sm text-gray-600">
           Don&apos;t have an account?{" "}
           <Link
             href={

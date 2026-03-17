@@ -18,7 +18,7 @@ export default function FeaturesSection() {
     >
       <div className="container px-4 md:px-6">
         <div className="flex flex-col items-start space-y-4 max-w-5xl mx-auto mb-12">
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-gray-900">
+          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-gray-900 text-balance">
             When you
           </h2>
           <div className="flex flex-row items-center gap-3">
@@ -64,7 +64,7 @@ export default function FeaturesSection() {
               return (
                 <div
                   key={`${cardType}-${index}`}
-                  className={`bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow opacity-0 animate-slide-in-right-fade ${
+                  className={`bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow opacity-0 motion-safe:animate-slide-in-right-fade ${
                     showSolutions
                       ? ""
                       : ""

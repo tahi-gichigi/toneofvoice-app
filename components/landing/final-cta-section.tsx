@@ -11,17 +11,17 @@ export default function FinalCtaSection() {
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-balance">
                 Build brand consistency in minutes
               </h2>
-              <p className="max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+              <p className="max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed text-pretty">
                 No more guesswork. Just consistent content at every single touchpoint.
               </p>
             </div>
             <div className="flex justify-center">
               <Button
                 size="lg"
-                className="gap-1"
+                className="gap-1 active:scale-[0.96] transition-transform duration-150"
                 onClick={() => {
                   document.getElementById("hero")?.scrollIntoView({ behavior: "smooth" })
                 }}

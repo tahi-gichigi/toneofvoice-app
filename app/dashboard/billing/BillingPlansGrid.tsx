@@ -44,10 +44,10 @@ export function BillingPlansGrid({
       <div className="container px-4 md:px-6">
         {/* Section heading */}
         <div className="flex flex-col items-center justify-center space-y-3 text-center mb-8">
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-balance">
             Choose your plan
           </h2>
-          <p className="max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+          <p className="max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed text-pretty">
             Unlock your full guide, edit anytime, and export in multiple formats
           </p>
         </div>
@@ -139,7 +139,7 @@ function BillingPlanCard({
             <p className={`text-5xl font-bold ${theme.priceClass}`}>
               {tierData.priceLabel}
             </p>
-            <p className="text-sm text-muted-foreground">{tierData.sublabel}</p>
+            <p className="text-sm text-gray-600">{tierData.sublabel}</p>
           </div>
           <ul className={theme.listClass}>
             {tierData.features.map((feature, i) => {

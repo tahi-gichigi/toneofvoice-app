@@ -131,7 +131,7 @@ export function GuideSidebar({
         <div className="flex items-center gap-2 px-2 overflow-hidden transition-all duration-300 group-data-[collapsible=icon]:px-0 group-data-[collapsible=icon]:justify-center">
           <div className="flex-1 truncate group-data-[collapsible=icon]:hidden">
             <h2 className="text-sm font-semibold text-gray-900 truncate tracking-tight">{brandName}</h2>
-            <p className="text-xs text-gray-500 truncate">Tone of Voice Guidelines</p>
+            <p className="text-xs text-gray-600 truncate">Tone of Voice Guidelines</p>
           </div>
           {/* Brand initial in icon mode */}
           <div className="hidden group-data-[collapsible=icon]:flex w-8 h-8 rounded-full bg-gray-100 text-gray-700 font-semibold text-sm items-center justify-center shrink-0">
@@ -164,7 +164,7 @@ export function GuideSidebar({
                       isActive={isActive}
                       tooltip={section.title}
                       className={cn(
-                        "h-10 transition-all duration-300 ease-out",
+                        "h-10 transition-[background-color,color,transform,box-shadow] duration-300 ease-out",
                         isActive 
                           ? "bg-gray-100 font-medium text-gray-900 shadow-sm scale-[1.02]" 
                           : "text-gray-600 hover:text-gray-900 hover:bg-gray-50/80 hover:scale-[1.01]",
@@ -173,7 +173,7 @@ export function GuideSidebar({
                     >
                       <div className="relative flex items-center justify-center">
                         <Icon className={cn(
-                          "size-4 transition-all duration-300",
+                          "size-4 transition-[color,transform] duration-300",
                           isActive ? "text-blue-600 scale-110" : "text-gray-500 group-hover:scale-105"
                         )} />
                         {isActive && (
@@ -181,7 +181,7 @@ export function GuideSidebar({
                         )}
                       </div>
                       
-                      <span className="flex-1 truncate transition-all duration-300">{section.title}</span>
+                      <span className="flex-1 truncate">{section.title}</span>
                       {locked && (
                         <Lock className="size-3.5 shrink-0 text-gray-400" aria-hidden />
                       )}
@@ -299,8 +299,8 @@ export function GuideSidebar({
 
           {/* Progress Indicator (only if not fully unlocked) */}
           {subscriptionTier === 'starter' && (
-            <div className="space-y-2 mb-2 animate-in fade-in slide-in-from-bottom-2 duration-500 delay-100">
-              <div className="flex items-center justify-between text-xs text-gray-500 transition-all duration-300">
+            <div className="space-y-2 mb-2 animate-in fade-in motion-safe:slide-in-from-bottom-2 duration-500 delay-100">
+              <div className="flex items-center justify-between text-xs text-gray-500">
                 <span className="font-medium">{unlockedCount} of {totalSections} sections included</span>
                 <span className="font-semibold text-gray-700">{progress}%</span>
               </div>
@@ -311,7 +311,7 @@ export function GuideSidebar({
                   indicatorClassName="bg-gray-800 transition-all duration-500 ease-out"
                 />
               </div>
-              <p className="text-[10px] text-gray-400">Upgrade to access all sections</p>
+              <p className="text-xs text-gray-500">Upgrade to access all sections</p>
             </div>
           )}
 
@@ -319,7 +319,7 @@ export function GuideSidebar({
             {subscriptionTier === 'starter' && (
               <Button 
                 onClick={onUpgrade} 
-                className="w-full bg-gray-900 hover:bg-gray-800 text-white shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 active:shadow-md"
+                className="w-full bg-gray-900 hover:bg-gray-800 text-white shadow-md transition-[transform,background-color,box-shadow] duration-300 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 active:shadow-md"
                 size="sm"
               >
                 <Lock className="mr-2 size-3.5 transition-transform duration-300 group-hover:scale-110" />

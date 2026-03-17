@@ -67,6 +67,10 @@
 - Offload research, exploration, and parallel analysis to subagents
 - One task per subagent for focused execution
 
+### Mixpanel Boards
+- **Never create a new board** when asked to add a chart or funnel - add the report to the existing board as a new row
+- Only create a new board if explicitly asked to
+
 ---
 
 ## Decision Gateway

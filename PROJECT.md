@@ -251,6 +251,18 @@ Format: Two-column tables (Use | Instead of) for Preferred Terms and Spelling/Us
 - **Server logs**: `console.log` in API routes (Vercel logs)
 - **DB**: Check Supabase logs for RLS policy violations
 
+### Mixpanel Session Replays via MCP
+
+The Mixpanel MCP `Get-User-Replays-Data` tool requires a `distinct_id` or `replay_ids` — it can't list all replays directly. To browse replays programmatically:
+
+1. **Get replay IDs**: Query `Get-Property-Values` with `event: "$mp_session_record"` and `property: "$mp_replay_id"`
+2. **Get user IDs**: Query `Get-Property-Values` with `event: "$mp_session_record"` and `property: "$distinct_id"`
+3. **Get user emails**: Query `Get-Property-Values` with `resource_type: "User"` and `property: "$email"`
+4. **Fetch replay data**: Pass up to 20 `replay_ids` to `Get-User-Replays-Data` — returns `replay_analysis` (event timeline) and `replay_events`
+5. **Filter by user**: Use `distinct_id` + `from_date`/`to_date` to get replays for a specific user
+
+Other useful session recording properties: `$browser`, `$os`, `$device`, `replay_start_url`, `$current_url`
+
 ---
 
 ## Testing & Scripts

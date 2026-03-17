@@ -113,7 +113,7 @@ export function MarkdownRenderer({ content, className, selectedTraits = [], sect
           // Word List: subtle category header
           if (sectionId === "word-list" || /^(Preferred Terms|Avoid Terms|Spelling and Usage)$/i.test(text)) {
             return (
-              <h3 className={cn("text-sm font-medium uppercase tracking-wide text-gray-500 mt-6 mb-3 first:mt-0")}>
+              <h3 className={cn("text-sm font-medium uppercase tracking-wide text-gray-600 mt-6 mb-3 first:mt-0")}>
                 {children}
               </h3>
             )

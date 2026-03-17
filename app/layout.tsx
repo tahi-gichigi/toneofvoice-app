@@ -73,7 +73,7 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning style={{ colorScheme: "light" }}>
       <head>
         {/* Google tag (gtag.js) */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=AW-943197631"></script>
@@ -325,7 +325,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
       </head>
-      <body className={`${geistSans.className} ${playfairDisplay.variable} overflow-x-hidden`}>
+      <body className={`${geistSans.className} ${playfairDisplay.variable} overflow-x-hidden antialiased`}>
         {/* Meta Pixel noscript fallback */}
         <noscript>
           {/* eslint-disable-next-line @next/next/no-img-element */}
