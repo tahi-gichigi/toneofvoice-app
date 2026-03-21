@@ -9,13 +9,7 @@ import { useExtraction } from "@/hooks/use-extraction"
 import { useState, useEffect } from "react"
 import { cn } from "@/lib/utils"
 
-const PLACEHOLDER_EXAMPLES = [
-  "apple.com",
-  "A luxury skincare brand for women 35+",
-  "spotify.com",
-  "An indie coffee shop with personality",
-  "Your website URL or brand description",
-]
+const STATIC_PLACEHOLDER = "Your website URL or brand description"
 
 export default function HeroSection() {
   const {
@@ -34,17 +28,7 @@ export default function HeroSection() {
     detectInputType,
   } = useExtraction()
 
-  const [placeholderIdx, setPlaceholderIdx] = useState(0)
   const [isFocused, setIsFocused] = useState(false)
-
-  // Cycle placeholder every 3s — pause when focused or user has typed
-  useEffect(() => {
-    if (isFocused || url) return
-    const id = setInterval(() => {
-      setPlaceholderIdx((i) => (i + 1) % PLACEHOLDER_EXAMPLES.length)
-    }, 3000)
-    return () => clearInterval(id)
-  }, [isFocused, url])
 
   const borderClass = error
     ? "bg-red-400"
@@ -82,7 +66,7 @@ export default function HeroSection() {
 
           {/* Subtext */}
           <p className="animate-in fade-in motion-safe:slide-in-from-bottom-4 duration-1000 delay-500 text-xl text-muted-foreground max-w-2xl mb-8 hero-lead">
-            Stop asking AI to &quot;make it sound good.&quot; Create high-quality, professional{" "}
+            Stop asking AI to &quot;make it sound good.&quot; Create professional{" "}
             <strong>tone of voice guidelines</strong> to make sure you always sound like you.
           </p>
 
@@ -95,44 +79,39 @@ export default function HeroSection() {
 
               {/* Gradient border wrapper */}
               <div className={cn("p-[1.5px] rounded-[15.5px] transition-all duration-300", borderClass, shadowClass)}>
-                <div className="flex items-center bg-white rounded-[14px] px-3 py-2 gap-2">
-                  <Sparkles className="h-5 w-5 text-blue-500 shrink-0 ml-1" />
+                {/* On mobile: textarea full-width on top, button full-width below.
+                    On sm+: single row with textarea and button side-by-side. */}
+                <div className="flex flex-col sm:flex-row sm:items-end bg-white rounded-[14px] px-3 py-2 gap-2">
 
-                  {/* Input + animated placeholder overlay */}
-                  <div className="relative flex-1">
-                    <input
+                  {/* Input row: icon + textarea — icon pinned to top to match first line */}
+                  <div className="flex items-start flex-1 gap-2">
+                    <Sparkles className="h-5 w-5 text-blue-500 shrink-0 ml-1 mt-3" />
+
+                    {/* Auto-resizing textarea — grows as user types, shrinks when text is removed */}
+                    <textarea
                       ref={inputRef}
-                      type="text"
-                      // Native placeholder hidden — custom overlay handles it
-                      placeholder=""
-                      className="w-full py-3 text-base font-medium bg-transparent border-none outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:rounded-sm"
+                      rows={1}
+                      placeholder={STATIC_PLACEHOLDER}
+                      className="w-full py-3 text-base font-medium bg-transparent border-none outline-none resize-none overflow-hidden leading-normal placeholder:text-gray-400 placeholder:text-sm placeholder:font-normal"
+                      style={{ height: "auto" }}
                       value={url}
                       onChange={(e) => {
                         const sanitizedValue = sanitizeInput(e.target.value, url)
                         setUrl(sanitizedValue)
                         if (error) clearError()
+                        // Auto-resize: reset to auto so the element can shrink, then expand to content
+                        e.target.style.height = "auto"
+                        e.target.style.height = e.target.scrollHeight + "px"
                       }}
                       onFocus={() => setIsFocused(true)}
                       onBlur={() => setIsFocused(false)}
                       autoCapitalize="none"
                       autoCorrect="off"
-                      spellCheck="false"
-                      inputMode="text"
+                      spellCheck={false}
                       disabled={isExtracting || isSuccess}
                       aria-label="Website URL or brand description"
                       aria-describedby={error ? "input-error" : undefined}
                     />
-                    {/* Animated placeholder — fades in on each cycle change */}
-                    {!url && (
-                      <div className="absolute inset-0 flex items-center pointer-events-none select-none">
-                        <span
-                          key={placeholderIdx}
-                          className="text-gray-400 text-sm font-normal animate-in fade-in duration-500 truncate"
-                        >
-                          {PLACEHOLDER_EXAMPLES[placeholderIdx]}
-                        </span>
-                      </div>
-                    )}
                   </div>
 
                   <Button
@@ -143,7 +122,7 @@ export default function HeroSection() {
                     }
                     disabled={isExtracting || isSuccess || !isInputValid()}
                     className={cn(
-                      "shrink-0 rounded-xl px-5 h-11 bg-black text-white font-semibold text-sm",
+                      "w-full sm:w-auto shrink-0 rounded-xl px-5 h-11 bg-black text-white font-semibold text-sm",
                       "hover:bg-gray-800 focus-visible:bg-gray-800 focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-1",
                       "active:not-disabled:scale-[0.96] transition-[background-color,box-shadow,opacity,scale] duration-200",
                       isSuccess && "bg-green-500 hover:bg-green-600 focus:ring-green-400",

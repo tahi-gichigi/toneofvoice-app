@@ -226,7 +226,7 @@ export interface UseExtractionReturn {
   isSuccess: boolean
   loadingMessage: string
   inputAnimating: boolean
-  inputRef: React.RefObject<HTMLInputElement | null>
+  inputRef: React.RefObject<HTMLTextAreaElement | null>
   handleExtraction: (e: React.FormEvent) => Promise<void>
   isInputValid: () => boolean
   sanitizeInput: (value: string, currentValue: string) => string
@@ -247,7 +247,7 @@ export function useExtraction(): UseExtractionReturn {
     null
   )
   const [inputAnimating, setInputAnimating] = useState(false)
-  const inputRef = useRef<HTMLInputElement>(null)
+  const inputRef = useRef<HTMLTextAreaElement>(null)
 
   // Handle "Get Started" button click - animate and focus input
   useEffect(() => {
