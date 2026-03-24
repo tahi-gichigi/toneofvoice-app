@@ -108,11 +108,14 @@ function GuideContent() {
   const exportPromptDismissedRef = useRef(false)
   // First-visit tip: points users to Edit guide + Download (dismissed via localStorage)
   const [guideCTADismissed, setGuideCTADismissed] = useState(false)
+  // Ask AI discovery badge (dismissed via localStorage)
+  const [askAIHintDismissed, setAskAIHintDismissed] = useState(false)
 
   // Read localStorage to see if the guide action tip has been dismissed before
   useEffect(() => {
     try {
       if (localStorage.getItem("guide_hint_dismissed")) setGuideCTADismissed(true)
+      if (localStorage.getItem("askai_hint_dismissed")) setAskAIHintDismissed(true)
     } catch {}
   }, [])
 
@@ -1532,11 +1535,32 @@ function GuideContent() {
             ) : null
           }
           editorBanner={
-            contentUpdated && (content?.length ?? 0) > 0 ? (
-              <div className="absolute top-4 right-4 bg-green-100 border border-green-200 text-green-800 px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2 animate-in fade-in slide-in-from-top-2 zoom-in-95 duration-500 z-10 shadow-md">
-                <Check className="h-4 w-4 animate-in zoom-in duration-300" />
-                Style Guide Updated
-              </div>
+            (contentUpdated && (content?.length ?? 0) > 0) || (viewMode === "edit" && !!user && !askAIHintDismissed) ? (
+              <>
+                {contentUpdated && (content?.length ?? 0) > 0 && (
+                  <div className="absolute top-4 right-4 bg-green-100 border border-green-200 text-green-800 px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2 animate-in fade-in slide-in-from-top-2 zoom-in-95 duration-500 z-10 shadow-md">
+                    <Check className="h-4 w-4 animate-in zoom-in duration-300" />
+                    Style Guide Updated
+                  </div>
+                )}
+                {viewMode === "edit" && !!user && !askAIHintDismissed && (
+                  <div className="absolute top-4 left-4 flex items-center gap-2 bg-violet-50 border border-violet-200 text-violet-700 px-3 py-2 rounded-lg text-sm font-medium animate-in fade-in slide-in-from-top-2 duration-500 z-10 shadow-sm">
+                    <Sparkles className="h-4 w-4 shrink-0" />
+                    <span>Ask AI</span>
+                    <span className="text-xs text-violet-400 font-normal">Cmd+J</span>
+                    <button
+                      onClick={() => {
+                        setAskAIHintDismissed(true)
+                        try { localStorage.setItem("askai_hint_dismissed", "1") } catch {}
+                      }}
+                      className="ml-1 text-violet-400 hover:text-violet-600 transition-colors"
+                      aria-label="Dismiss"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  </div>
+                )}
+              </>
             ) : undefined
           }
           contentClassName={`transition-all duration-500 ${isRetrying ? "opacity-50 blur-sm" : "opacity-100"} ${expandedContentKey ? "animate-in fade-in slide-in-from-bottom-2 duration-500" : ""}`}
